@@ -61,6 +61,7 @@ public class UserRepo {
         // Eksekusi Query
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        // Jika datanya ada dan cursoer mengarah ke data pertama
         if (cursor.moveToFirst()){
             // Looping sampai data terakhir / data masih tersedia
             do {

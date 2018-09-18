@@ -5,7 +5,16 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     public String nama, gender;
-    public int umur;
+    public int id, umur;
+
+    // Nama Tabel
+    public static final String TABLE = "user";
+    // Atribut
+    public static final String KEY_ID = "id";
+    public static final String KEY_nama = "name";
+    public static final String KEY_umur = "umur";
+    public static final String KEY_gender = "gender";
+
 
     @Override
     public int describeContents() {
@@ -14,6 +23,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(this.nama);
         dest.writeString(this.gender);
         dest.writeInt(this.umur);
@@ -23,6 +33,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        this.id = in.readInt();
         this.nama = in.readString();
         this.gender = in.readString();
         this.umur = in.readInt();

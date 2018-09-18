@@ -31,11 +31,8 @@ public class ListActivity extends AppCompatActivity {
         rv_user.setLayoutManager(mLayoutManager);
 
         Bundle extra = getIntent().getExtras();
-        User user = new User();
         if (extra != null) {
-            user.nama = extra.getString("nama");
-            user.umur = extra.getInt("umur");
-            user.gender = extra.getString("gender");
+            User user = extra.getParcelable("user");
             listUser.add(user);
         }
     }

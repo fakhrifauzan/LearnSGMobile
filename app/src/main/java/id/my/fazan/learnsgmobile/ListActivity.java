@@ -8,21 +8,34 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.my.fazan.learnsgmobile.adapter.ListUserAdapter;
+import id.my.fazan.learnsgmobile.database.UserRepo;
 import id.my.fazan.learnsgmobile.model.User;
 
 public class ListActivity extends AppCompatActivity {
 
-    static ArrayList<User> listUser = new ArrayList<>();
-    RecyclerView rv_user;
+    ArrayList<User> listUser = new ArrayList<>();
     ListUserAdapter adapter;
+    UserRepo repo = new UserRepo(this);
+
+    @BindView(R.id.rv_user)
+    RecyclerView rv_user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_data);
 
-        rv_user = findViewById(R.id.rv_user);
+        ButterKnife.bind(this);
+
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            User user = extra.getParcelable("user");
+            repo.insert(user);
+            listUser = repo.getUserList();
+        }
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter = new ListUserAdapter(listUser);
@@ -30,10 +43,5 @@ public class ListActivity extends AppCompatActivity {
         rv_user.setHasFixedSize(true);
         rv_user.setLayoutManager(mLayoutManager);
 
-        Bundle extra = getIntent().getExtras();
-        if (extra != null) {
-            User user = extra.getParcelable("user");
-            listUser.add(user);
-        }
     }
 }

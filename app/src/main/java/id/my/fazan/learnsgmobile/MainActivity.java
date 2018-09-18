@@ -60,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void proccessData(User user) {
         Intent intent = new Intent(this, ListActivity.class);
-        intent.putExtra("nama", user.nama);
-        intent.putExtra("gender", user.gender);
-        intent.putExtra("umur", user.umur);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }
